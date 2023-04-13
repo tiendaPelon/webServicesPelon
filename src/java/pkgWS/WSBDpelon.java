@@ -8,7 +8,7 @@ package pkgWS;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-
+import modelo.MDB;
 /**
  *
  * @author danie
@@ -22,5 +22,29 @@ public class WSBDpelon {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "Alta")
+    public String Alta(@WebParam(name = "tabla") final String tabla, @WebParam(name = "datos") final String datos) {
+        MDB administradorBD = new MDB();
+        String leyenda;
+        leyenda = administradorBD.registrarAlta(tabla,datos);
+        
+        return leyenda;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "editar")
+    public String editar(@WebParam(name = "tabla") final String tabla, @WebParam(name = "datos") final String datos, @WebParam(name = "condicion") final String condicion) {
+        MDB administradorBD = new MDB();
+        String leyenda;
+        leyenda = administradorBD.modificarRegistro(tabla,datos,condicion);
+        
+        return leyenda;
     }
 }
